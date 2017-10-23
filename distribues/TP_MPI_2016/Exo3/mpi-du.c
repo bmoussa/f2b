@@ -1,3 +1,20 @@
+// to execute in multiple machines: 
+// make log
+// mpirun --host localhost,pc-df-201,pc-df-203 mpi-du ..
+// /opt/campux/mpe/bin/jumpshot mpi-du.clog2
+
+/*
+
+typedef struct _MPI_Status {
+  int count;
+  int cancelled;
+  int MPI_SOURCE;
+  int MPI_TAG;
+  int MPI_ERROR;
+} MPI_Status, *PMPI_Status;
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,16 +94,19 @@ int main(int argc, char *argv[])
 	  MPI_Send(cmd, strlen(cmd)+1, MPI_CHAR, i, tag, MPI_COMM_WORLD); 
 	}
       }
+      
+//      /* Wait for results from slaves */
+//      for( i=1 ; i<wait_for_nb_slaves+1 ; i++ ){
+//	printf("waiting for slave %d\n", i);
 
-      /* Wait for results from slaves */
-      for( i=1 ; i<wait_for_nb_slaves+1 ; i++ ){
-	printf("attente  maitre %d\n", i);
-	MPI_Recv(&partialsize, 1, MPI_INT, i, tag+1, MPI_COMM_WORLD, &status);
-	printf("fin attente  maitre %d\n", i);
+	// receiving from anyone
+	MPI_Recv(&partialsize, 1, MPI_INT, MPI_ANY_SOURCE, tag+1, MPI_COMM_WORLD, &status);
+	printf("finished waiting for slave %d\n", status.MPI_SOURCE);
+
 	totalsize = totalsize + partialsize;
 	printf("I got %d from node %d \n",partialsize, i);
 	printf("Total %d  \n",totalsize);
-      }
+//      }
 	  
     }
   
