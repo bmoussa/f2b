@@ -4,6 +4,9 @@
 #include "mpi.h"
 #include <dirent.h>
 
+#define TRUE 1
+#define FALSE 0
+
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +14,7 @@ int main(int argc, char *argv[])
   int i,j, num, rank, size, tag, next, from, nbslaves;
   FILE *fp;
   DIR *dirp;
-  int notover;
+  int over;
   int  receivedsize;
 
   int partialsize, totalsize;
@@ -29,7 +32,7 @@ int main(int argc, char *argv[])
   /* operator so that the last process "wraps around" to rank */
   /* zero. */
 
-  notover = 1;
+  over = FALSE;
   totalsize = 0;
   tag = 201;
   next = (rank + 1) % size;
@@ -49,25 +52,25 @@ int main(int argc, char *argv[])
       exit(1);
     }
     sprintf(base, "du -s %s/", argv[1]);
-    while (notover) {
+    while (!over) {
       wait_for_nb_slaves=0;
 
       for( i=1 ; i < nbslaves+1 ; i++ ) {
 
 	if ( (direntp = readdir( dirp )) != NULL ) {
 	  if(!strcmp(direntp->d_name, "."))
-	    { i= i-1; continue;}
+	    {i=i-1; continue;}
 	  if(!strcmp(direntp->d_name, ".."))
-	    {i = i -1; continue;}
+	    {i=i-1; continue;}
 	  strcpy(cmd, base);
 	  strcat(cmd, direntp->d_name);
 	  wait_for_nb_slaves++;
 	}
 	else {
-	  notover = 0;
+	  over = TRUE;
 	}
 
-	if (notover) {
+	if (!over) {
 	  printf("I've sent  %s to  slave number %d w/ length \n",
 		 cmd, i, strlen(cmd));
 	  printf("Process sending %s to %d\n", cmd, i);
@@ -97,18 +100,18 @@ int main(int argc, char *argv[])
   } else {
 
     /* slaves */
-    while (notover) {
+    while (!over) {
 
       size = 0;
       /* Receive data from master */
       
       MPI_Recv(instr, 100, MPI_CHAR, 0, tag, MPI_COMM_WORLD, &status);
       
-      /* we call MPI_Get8count to determine the size of the message received */
+      /* we call MPI_Get_count to determine the size of the message received */
       
       MPI_Get_count (&status, MPI_CHAR, &receivedsize);
       if ( receivedsize== 0) {
-	notover = 0;
+	over = TRUE;
       }
       else {
 	fp = popen(instr, "r");
