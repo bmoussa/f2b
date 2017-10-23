@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
   /* around the ring.  */
 
   while (1) {
+    printf("Process %d waiting for receive\n", rank);
     MPI_Recv(&num, 1, MPI_INT, from, tag, MPI_COMM_WORLD, &status);
 
     printf("Process %d received %d\n", rank, num);
@@ -64,19 +65,26 @@ int main(int argc, char *argv[])
 
     if (num == 0) {
       printf("Process %d exiting\n", rank);
+      	
+//	MPI_Send(&num, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
+	
       break;
     }
 
     printf("Process %d sending %d to %d\n", rank, num, next);
     MPI_Send(&num, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
+    printf("Process %d sent message\n", rank);
   }
 
   /* The last process does one extra send to process 0, which needs */
   /* to be received before the program can exit */
 
-/*  if (rank == 0)
-    MPI_Recv(&num, 1, MPI_INT, from, tag, MPI_COMM_WORLD, &status);
-*/
+
+	// send the last message before exiting
+	// must do this because process 1 is waiting for it
+  if (rank == 0)
+	MPI_Send(&num, 1, MPI_INT, next, tag, MPI_COMM_WORLD);
+
   /* Quit */
 
   MPI_Finalize();
