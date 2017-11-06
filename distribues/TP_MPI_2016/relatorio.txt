@@ -1,0 +1,21 @@
+como executar um mpi
+
+1 tenha um source.c
+2 compile normalmente
+3 execute com o mpirun
+4 visualise o clog
+ /opt/campux/mpe/bin/jumpshot filename.clog
+
+
+------ ex3 -------
+
+// to execute in multiple machines: 
+// make log
+// mpirun --host localhost,pc-df-201,pc-df-203 mpi-du ..
+// /opt/campux/mpe/bin/jumpshot mpi-du.clog2
+
+
+------ ex4 -------
+
+a ideia eh executar com um so escravo
+mpirun --np 2 --host localhost,pc-df-704 mandel-basic-mpi

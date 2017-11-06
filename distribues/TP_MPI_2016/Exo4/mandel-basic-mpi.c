@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "mpi.h"
 
 #if defined(__GNUC__) && (__GNUC__ >= 3)
@@ -12,7 +13,7 @@
 
 
 /* N'hesitez pas a changer MAXX .*/
-#define MAXX  500
+#define MAXX  50
 #define MAXY (MAXX * 3 / 4)
 
 #define NX (2 * MAXX + 1)
@@ -25,6 +26,16 @@ static int mandel(double, double);
 
 int dump_ppm(const char *, int[NX][NY]);
 int cases[NX][NY];
+
+
+void print_array(int *v, int n){
+	int i;
+	printf("[%d", v[0]);
+	for(i=1; i <n; i++) {
+		printf(",%d", v[i]);
+	}
+	printf("]\n");
+}
 
 
 int main(int argc, char *argv[])
@@ -43,17 +54,25 @@ int main(int argc, char *argv[])
 
   if (rank == 0) {
 
-    int res;
+    int res[NY];
 
     /* Begin User Program  - the master */
 
    for(i = -MAXX; i <= MAXX; i++) {
-    for(j = -MAXY; j <= MAXY; j++) {
 
-      MPI_Recv(&res, 1, MPI_INT, 1, DATATAG, MPI_COMM_WORLD, &status);
-      cases[i + MAXX][j + MAXY] = res;
+	// my error: I tried to exchange data this way (using pointers) but I found that I cant use pointers because im using two different machines, with differente memories
+	// MPI_Recv(res, 1, MPI_INT, 1, DATATAG, MPI_COMM_WORLD, &status);
+    
+    	// correction:
+	MPI_Recv(res, NY, MPI_INT, 1, DATATAG, MPI_COMM_WORLD, &status);
+    
+	printf("master %d received results = ", rank);
+	print_array(res, NY);
+    
+    for(j = -MAXY; j <= MAXY; j++) {
+      cases[i + MAXX][j + MAXY] = res[j + MAXY];
     }
-    }
+   }
     dump_ppm("mandel.ppm", cases);
     printf("Fini.\n");
   }
@@ -62,22 +81,24 @@ int main(int argc, char *argv[])
 
     /* On est l'un des fils */
     double x, y;
-    int i, j, res, rc;
+    int i, j, res[NY], rc;
     for(i = -MAXX; i <= MAXX; i++) {
       for(j = -MAXY; j <= MAXY; j++) {
 	x = 2 * i / (double)MAXX;
 	y = 1.5 * j / (double)MAXY;
-	res = mandel(x, y);
-	MPI_Send(&res, 1 , MPI_INT, 0, DATATAG, MPI_COMM_WORLD); 
+	printf("son %d is using (x, y) = (%f, %f) \n", rank, x, y);
+	
+	res[j + MAXY] = mandel(x, y);
       }
+      printf("son %d sends results = ", rank);
+      print_array(res, NY);
+      MPI_Send(res, NY, MPI_INT, 0, DATATAG, MPI_COMM_WORLD); 
     }
   }
 
   MPI_Finalize();
   return 0;
 }
-
-
 
 /* function to compute a point - the number of iterations 
    plays a central role here */
