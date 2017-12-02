@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.LaunchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ballProcessToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.primeProcessToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastBallProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lastPrimeProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allProcessesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.LaunchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ballProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.primeProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ballProcessToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.primeProcessToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +58,30 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // LaunchToolStripMenuItem
+            // 
+            this.LaunchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ballProcessToolStripMenuItem1,
+            this.primeProcessToolStripMenuItem1});
+            this.LaunchToolStripMenuItem.Name = "LaunchToolStripMenuItem";
+            this.LaunchToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.LaunchToolStripMenuItem.Text = "Launch";
+            this.LaunchToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
+            // 
+            // ballProcessToolStripMenuItem1
+            // 
+            this.ballProcessToolStripMenuItem1.Name = "ballProcessToolStripMenuItem1";
+            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.ballProcessToolStripMenuItem1.Text = "Ball process";
+            this.ballProcessToolStripMenuItem1.Click += new System.EventHandler(this.ballProcessToolStripMenuItem1_Click);
+            // 
+            // primeProcessToolStripMenuItem1
+            // 
+            this.primeProcessToolStripMenuItem1.Name = "primeProcessToolStripMenuItem1";
+            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.primeProcessToolStripMenuItem1.Text = "Prime process";
+            this.primeProcessToolStripMenuItem1.Click += new System.EventHandler(this.primeProcessToolStripMenuItem1_Click);
+            // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -68,18 +92,6 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.deleteToolStripMenuItem.Text = "Delete";
-            // 
-            // showProcessToolStripMenuItem
-            // 
-            this.showProcessToolStripMenuItem.Name = "showProcessToolStripMenuItem";
-            this.showProcessToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
-            this.showProcessToolStripMenuItem.Text = "Show Process";
-            // 
-            // quitToolStripMenuItem
-            // 
-            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
-            this.quitToolStripMenuItem.Text = "Quit";
             // 
             // lastProcessToolStripMenuItem
             // 
@@ -105,6 +117,20 @@
             this.allProcessesToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.allProcessesToolStripMenuItem.Text = "All processes";
             // 
+            // showProcessToolStripMenuItem
+            // 
+            this.showProcessToolStripMenuItem.Name = "showProcessToolStripMenuItem";
+            this.showProcessToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.showProcessToolStripMenuItem.Text = "Show Process";
+            this.showProcessToolStripMenuItem.Click += new System.EventHandler(this.showProcessToolStripMenuItem_Click);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
             // listView1
             // 
             this.listView1.Location = new System.Drawing.Point(0, 47);
@@ -112,16 +138,7 @@
             this.listView1.Size = new System.Drawing.Size(341, 329);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // LaunchToolStripMenuItem
-            // 
-            this.LaunchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ballProcessToolStripMenuItem1,
-            this.primeProcessToolStripMenuItem1});
-            this.LaunchToolStripMenuItem.Name = "LaunchToolStripMenuItem";
-            this.LaunchToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.LaunchToolStripMenuItem.Text = "Launch";
-            this.LaunchToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // ballProcessToolStripMenuItem
             // 
@@ -134,19 +151,6 @@
             this.primeProcessToolStripMenuItem.Name = "primeProcessToolStripMenuItem";
             this.primeProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.primeProcessToolStripMenuItem.Text = "Prime process";
-            // 
-            // ballProcessToolStripMenuItem1
-            // 
-            this.ballProcessToolStripMenuItem1.Name = "ballProcessToolStripMenuItem1";
-            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.ballProcessToolStripMenuItem1.Text = "Ball process";
-            this.ballProcessToolStripMenuItem1.Click += new System.EventHandler(this.ballProcessToolStripMenuItem1_Click);
-            // 
-            // primeProcessToolStripMenuItem1
-            // 
-            this.primeProcessToolStripMenuItem1.Name = "primeProcessToolStripMenuItem1";
-            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.primeProcessToolStripMenuItem1.Text = "Prime process";
             // 
             // process_manager
             // 
