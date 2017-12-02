@@ -66,19 +66,18 @@
             this.LaunchToolStripMenuItem.Name = "LaunchToolStripMenuItem";
             this.LaunchToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.LaunchToolStripMenuItem.Text = "Launch";
-            this.LaunchToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
             // ballProcessToolStripMenuItem1
             // 
             this.ballProcessToolStripMenuItem1.Name = "ballProcessToolStripMenuItem1";
-            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
             this.ballProcessToolStripMenuItem1.Text = "Ball process";
             this.ballProcessToolStripMenuItem1.Click += new System.EventHandler(this.ballProcessToolStripMenuItem1_Click);
             // 
             // primeProcessToolStripMenuItem1
             // 
             this.primeProcessToolStripMenuItem1.Name = "primeProcessToolStripMenuItem1";
-            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
             this.primeProcessToolStripMenuItem1.Text = "Prime process";
             this.primeProcessToolStripMenuItem1.Click += new System.EventHandler(this.primeProcessToolStripMenuItem1_Click);
             // 
@@ -98,24 +97,28 @@
             this.lastProcessToolStripMenuItem.Name = "lastProcessToolStripMenuItem";
             this.lastProcessToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.lastProcessToolStripMenuItem.Text = "Last process";
+            this.lastProcessToolStripMenuItem.Click += new System.EventHandler(this.lastProcessToolStripMenuItem_Click);
             // 
             // lastBallProcessToolStripMenuItem
             // 
             this.lastBallProcessToolStripMenuItem.Name = "lastBallProcessToolStripMenuItem";
             this.lastBallProcessToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.lastBallProcessToolStripMenuItem.Text = "Last ball process";
+            this.lastBallProcessToolStripMenuItem.Click += new System.EventHandler(this.lastBallProcessToolStripMenuItem_Click);
             // 
             // lastPrimeProcessToolStripMenuItem
             // 
             this.lastPrimeProcessToolStripMenuItem.Name = "lastPrimeProcessToolStripMenuItem";
             this.lastPrimeProcessToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.lastPrimeProcessToolStripMenuItem.Text = "Last prime process";
+            this.lastPrimeProcessToolStripMenuItem.Click += new System.EventHandler(this.lastPrimeProcessToolStripMenuItem_Click);
             // 
             // allProcessesToolStripMenuItem
             // 
             this.allProcessesToolStripMenuItem.Name = "allProcessesToolStripMenuItem";
             this.allProcessesToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.allProcessesToolStripMenuItem.Text = "All processes";
+            this.allProcessesToolStripMenuItem.Click += new System.EventHandler(this.allProcessesToolStripMenuItem_Click);
             // 
             // showProcessToolStripMenuItem
             // 
@@ -138,7 +141,6 @@
             this.listView1.Size = new System.Drawing.Size(341, 329);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // ballProcessToolStripMenuItem
             // 
