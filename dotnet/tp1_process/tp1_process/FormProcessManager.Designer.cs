@@ -123,8 +123,8 @@
             // showProcessToolStripMenuItem
             // 
             this.showProcessToolStripMenuItem.Name = "showProcessToolStripMenuItem";
-            this.showProcessToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
-            this.showProcessToolStripMenuItem.Text = "Show Process";
+            this.showProcessToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
+            this.showProcessToolStripMenuItem.Text = "Show/Hide table";
             this.showProcessToolStripMenuItem.Click += new System.EventHandler(this.showProcessToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
@@ -139,7 +139,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 47);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(341, 329);
-            this.listView1.TabIndex = 1;
+            this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // ballProcessToolStripMenuItem

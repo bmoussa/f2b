@@ -21,7 +21,8 @@ namespace tp1_process
 
 
         /* --------------- GLOBAL VARIABLES ---------------- */
-        List<Process> procs = new List<Process>();
+        private List<Process> procs = new List<Process>();
+        private bool show_procs = true;
 
 
         public process_manager()
@@ -31,10 +32,14 @@ namespace tp1_process
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // add X button callback
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormClosingHandler);
+
+            // initialize listview
+            update_listView();
         }
 
-        
+
         /* --------------- CALLBACK FUNCTIONS ---------------- */
 
         // callback for X button
@@ -59,6 +64,8 @@ namespace tp1_process
 
             // append process to list
             procs.Add(p);
+
+            update_listView();
         }
 
         private void primeProcessToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -69,11 +76,20 @@ namespace tp1_process
 
             // append process to list
             procs.Add(p);
+
+            update_listView();
         }
 
         private void showProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // inverse table status
+            show_procs = !show_procs;
 
+            // update table according to new state
+            if (show_procs)
+                this.listView1.Show();
+            else
+                this.listView1.Hide();
         }
 
         private void lastBallProcessToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,7 +103,7 @@ namespace tp1_process
             // remove from global list
             this.procs.Remove(last);
 
-            // TODO: refresh listview
+            update_listView();
         }
 
         private void lastPrimeProcessToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,19 +117,21 @@ namespace tp1_process
             // remove from global list
             this.procs.Remove(last);
 
-            // TODO: refresh listview
+            update_listView();
         }
 
         private void lastProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
             finish_last();
 
-            // TODO: refresh listview
+            update_listView();
         }
 
         private void allProcessesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             finish_childs();
+
+            update_listView();
         }
 
         /* --------------- AUXILIARY FUNCTIONS ---------------- */
@@ -149,6 +167,31 @@ namespace tp1_process
             finish_process(last);
             this.procs.Remove(last);
         }
+
+        private void update_listView()
+        {
+            // empty listview
+            this.listView1.Clear();
+
+            // draw listview headers
+            this.listView1.View = View.Details;
+            this.listView1.Columns.Add("Index", 40, HorizontalAlignment.Left);
+            this.listView1.Columns.Add("Process PID", 100, HorizontalAlignment.Left);
+            this.listView1.Columns.Add("Process name", 100, HorizontalAlignment.Left);
+
+            // fill listview using procs list
+            int i = 1;
+            foreach (Process p in this.procs)
+            {
+                string[] arr = {i++.ToString(), p.Id.ToString(), p.ProcessName};
+                ListViewItem itm = new ListViewItem(arr);
+                listView1.Items.Add(itm);
+            }
+
+            // redraw updated listview
+            listView1.Refresh();
+        }
+        
 
         /* --------------- PREDICATE FUNCTIONS ---------------- */
 
