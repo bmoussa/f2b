@@ -21,9 +21,11 @@ namespace tp1_process
 
 
         /* --------------- GLOBAL VARIABLES ---------------- */
+        // list of child processes
         private List<Process> procs = new List<Process>();
+        // state of processes table
         private bool show_procs = true;
-        
+        // delegate used by Asynchronous tasks that may return Process objects
         delegate void ProcessArgReturningVoidDelegate(Process p);
 
 
@@ -44,31 +46,36 @@ namespace tp1_process
 
         /* --------------- CALLBACK FUNCTIONS ---------------- */
 
-        // callback for X button
+        // callback for X button (close)
         private void FormClosingHandler(object sender, EventArgs e)
         {
+            // finish child processes before exiting
             finish_childs();
         }
         
-        // callback for QUIT button
+        // callback for menu => Quit
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // finish child processes before exiting
             finish_childs();
 
             // finish this process
             Close();
         }
 
+        // callback for menu => Create => Ball Process
         private void ballProcessToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             create_process(BALL_PROC_NAME + PROC_EXTENSION);
         }
-
+        
+        // callback for menu => Create => Prime Process
         private void primeProcessToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             create_process(PRIME_PROC_NAME + PROC_EXTENSION);
         }
         
+        // callback for the X button of a child
         void child_process_exited(object sender, EventArgs e)
         {
             // process must do this call using Invoke because it's another thread
@@ -86,6 +93,7 @@ namespace tp1_process
             }
         }
         
+        // callback for menu => Show/Hide table
         private void showProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // invert table status
@@ -98,27 +106,25 @@ namespace tp1_process
                 this.listView1.Hide();
         }
 
+        // callback for menu => Delete => Last Ball Process
         private void lastBallProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            find_last_process_with_name(BALL_PROC_NAME);
-            
-            update_listView();
+            finish_last_process_with_name(BALL_PROC_NAME);
         }
 
+        // callback for menu => Delete => Last Prime Process
         private void lastPrimeProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            find_last_process_with_name(PRIME_PROC_NAME);
-            
-            update_listView();
+            finish_last_process_with_name(PRIME_PROC_NAME);
         }
 
+        // callback for menu => Delete => Last Process
         private void lastProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
             finish_last();
-
-            update_listView();
         }
 
+        // callback for menu => Delete => All Processes
         private void allProcessesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             finish_childs();
@@ -128,6 +134,8 @@ namespace tp1_process
 
         /* --------------- AUXILIARY FUNCTIONS ---------------- */
 
+        // create a process with name process_name, 
+        // append it to processes list and refresh table
         private void create_process(string process_name)
         {
             // create the process with a callback function
@@ -141,10 +149,12 @@ namespace tp1_process
             update_listView();
         }
 
-        private void find_last_process_with_name(string name)
+        // finish the last launched process with name process_name, 
+        // remove it from processes list and refresh table
+        private void finish_last_process_with_name(string process_name)
         {
             // find last process with given name
-            bool hasName(Process p) => name.Equals(p.ProcessName);
+            bool hasName(Process p) => process_name.Equals(p.ProcessName);
             Predicate<Process> hasProcName = hasName;
             Process last = this.procs.FindLast(hasProcName);
 
@@ -152,8 +162,23 @@ namespace tp1_process
 
             // remove from global list
             this.procs.Remove(last);
+            
+            update_listView();
         }
 
+        // finish the last launched process, 
+        // remove it from processes list and refresh table
+        private void finish_last()
+        {
+            // finish last process from list and remove from list
+            Process last = this.procs.Last();
+            finish_process(last);
+            this.procs.Remove(last);
+
+            update_listView();
+        }
+
+        // finish a process by releasing its resources and closing its window
         private void finish_process(Process p)
         {
             if (p != null)
@@ -165,6 +190,7 @@ namespace tp1_process
             }
         }
 
+        // finish all childs of the manager process
         private void finish_childs()
         {
             // finish child processes
@@ -176,16 +202,8 @@ namespace tp1_process
             // empty procs list
             this.procs.Clear();
         }
-
-        // finish last process and remove from global list
-        private void finish_last()
-        {
-            // finish last process from list and remove from list
-            Process last = this.procs.Last();
-            finish_process(last);
-            this.procs.Remove(last);
-        }
         
+        // clean table and redraw it using the actual data of procs list
         private void update_listView()
         {
             // empty listview
