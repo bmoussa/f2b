@@ -23,6 +23,8 @@ namespace tp1_process
         /* --------------- GLOBAL VARIABLES ---------------- */
         private List<Process> procs = new List<Process>();
         private bool show_procs = true;
+        
+        delegate void ProcessArgReturningVoidDelegate(Process p);
 
 
         public process_manager()
@@ -59,30 +61,34 @@ namespace tp1_process
 
         private void ballProcessToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // create a process from type ball
-            Process p = Process.Start(BALL_PROC_NAME + PROC_EXTENSION);
-
-            // append process to list
-            procs.Add(p);
-
-            update_listView();
+            create_process(BALL_PROC_NAME + PROC_EXTENSION);
         }
 
         private void primeProcessToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // create a process from type prime
-            Process p = Process.Start(PRIME_PROC_NAME + PROC_EXTENSION);
-            Console.WriteLine(p.ProcessName);
-
-            // append process to list
-            procs.Add(p);
-
-            update_listView();
+            create_process(PRIME_PROC_NAME + PROC_EXTENSION);
         }
+        
+        void child_process_exited(object sender, EventArgs e)
+        {
+            // process must do this call using Invoke because it's another thread
+            void remove_exited_child(Process p)
+            {
+                this.procs.Remove(p);
+                this.update_listView();
+            }
 
+            if (this.listView1.InvokeRequired)
+            {
+                Process p = (Process)sender;
+                ProcessArgReturningVoidDelegate d = new ProcessArgReturningVoidDelegate(remove_exited_child);
+                this.Invoke(d, new object[] { p });
+            }
+        }
+        
         private void showProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // inverse table status
+            // invert table status
             show_procs = !show_procs;
 
             // update table according to new state
@@ -94,29 +100,15 @@ namespace tp1_process
 
         private void lastBallProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // find last ball process in list
-            Predicate<Process> hasProcName = IsBallProcess;
-            Process last = this.procs.FindLast(hasProcName);
-
-            finish_process(last);
-
-            // remove from global list
-            this.procs.Remove(last);
-
+            find_last_process_with_name(BALL_PROC_NAME);
+            
             update_listView();
         }
 
         private void lastPrimeProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // find last prime process in list
-            Predicate<Process> hasProcName = IsPrimeProcess;
-            Process last = this.procs.FindLast(hasProcName);
-
-            finish_process(last);
-
-            // remove from global list
-            this.procs.Remove(last);
-
+            find_last_process_with_name(PRIME_PROC_NAME);
+            
             update_listView();
         }
 
@@ -135,6 +127,32 @@ namespace tp1_process
         }
 
         /* --------------- AUXILIARY FUNCTIONS ---------------- */
+
+        private void create_process(string process_name)
+        {
+            // create the process with a callback function
+            Process p = Process.Start(process_name);
+            p.EnableRaisingEvents = true;
+            p.Exited += new EventHandler(child_process_exited);
+
+            // append process to list
+            procs.Add(p);
+
+            update_listView();
+        }
+
+        private void find_last_process_with_name(string name)
+        {
+            // find last process with given name
+            bool hasName(Process p) => name.Equals(p.ProcessName);
+            Predicate<Process> hasProcName = hasName;
+            Process last = this.procs.FindLast(hasProcName);
+
+            finish_process(last);
+
+            // remove from global list
+            this.procs.Remove(last);
+        }
 
         private void finish_process(Process p)
         {
@@ -167,7 +185,7 @@ namespace tp1_process
             finish_process(last);
             this.procs.Remove(last);
         }
-
+        
         private void update_listView()
         {
             // empty listview
@@ -192,11 +210,5 @@ namespace tp1_process
             listView1.Refresh();
         }
         
-
-        /* --------------- PREDICATE FUNCTIONS ---------------- */
-
-        static bool IsBallProcess(Process p) => BALL_PROC_NAME.Equals(p.ProcessName);
-
-        static bool IsPrimeProcess(Process p) => PRIME_PROC_NAME.Equals(p.ProcessName);
     }
 }
