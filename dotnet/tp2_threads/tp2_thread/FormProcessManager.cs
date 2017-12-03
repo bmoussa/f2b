@@ -54,14 +54,14 @@ namespace tp2_thread
         private void FormClosingHandler(object sender, EventArgs e)
         {
             // finish child threads before exiting
-            finish_childs();
+            finish_children();
         }
 
         // callback for menu => Quit
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // finish child threads before exiting
-            finish_childs();
+            finish_children();
 
             // finish this thread
             Close();
@@ -97,19 +97,6 @@ namespace tp2_thread
             }
         }
 
-        // callback for menu => Show/Hide table
-        private void showProcessToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // invert table status
-            show_threads = !show_threads;
-
-            // update table according to new state
-            if (show_threads)
-                this.listView1.Show();
-            else
-                this.listView1.Hide();
-        }
-
         // callback for menu => Delete => Last Ball Thread
         private void lastBallProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -128,20 +115,34 @@ namespace tp2_thread
             finish_last();
         }
 
-        // callback for menu => Delete => All Threades
+        // callback for menu => Delete => All Threads
         private void allProcessesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            finish_childs();
+            finish_children();
 
             update_listView();
         }
 
+        // callback for menu => Show/Hide table
+        private void showProcessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // invert table status
+            show_threads = !show_threads;
+
+            // update table according to new state
+            if (show_threads)
+                this.listView1.Show();
+            else
+                this.listView1.Hide();
+        }
+
+        // callback for menu > Pause/Resume
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // invert program status
             this.paused = !this.paused;
 
-            // pause or resume all threads
+            // pause or resume all threads according to new state
             foreach (Thread t in this.threads)
             {
                 if (this.paused)
@@ -182,9 +183,10 @@ namespace tp2_thread
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
 
-            // TODO: add exit callback
-            //p.EnableRaisingEvents = true;
-            //p.Exited += new EventHandler(child_thread_exited);
+            // add exit callback
+            // t.EnableRaisingEvents = true;
+            // Application.ThreadExit += new EventHandler(child_thread_exited);
+            // t.ThreadExit += new EventHandler(child_thread_exited);
 
             // append thread to list
             threads.Add(t);
@@ -233,7 +235,7 @@ namespace tp2_thread
         }
 
         // finish all childs of the manager thread
-        private void finish_childs()
+        private void finish_children()
         {
             // finish child threads
             foreach (Thread p in this.threads)
