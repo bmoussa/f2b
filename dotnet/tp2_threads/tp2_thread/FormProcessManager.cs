@@ -27,6 +27,8 @@ namespace tp1_process
         private List<Thread> threads = new List<Thread>();
         // state of threads table
         private bool show_threads = true;
+        // state of program
+        private bool paused = false;
         // delegate used by Asynchronous tasks that may return Thread objects
         delegate void ThreadArgReturningVoidDelegate(Thread p);
 
@@ -134,8 +136,25 @@ namespace tp1_process
             update_listView();
         }
 
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // invert program status
+            this.paused = !this.paused;
+
+            // pause or resume all threads
+            foreach (Thread t in this.threads)
+            {
+                if (this.paused)
+                    t.Suspend();
+                else
+                    t.Resume();
+            }
+        }
+
+
+
         /* --------------- AUXILIARY FUNCTIONS ---------------- */
-        
+
         // launch a thread with name thread_name, 
         // append it to threads list and refresh table
         private void launch_thread(string thread_name)
@@ -195,24 +214,21 @@ namespace tp1_process
         private void finish_last()
         {
             // finish last process from list and remove from list
-            Thread last = this.threads.Last();
-            finish_process(last);
-            this.threads.Remove(last);
-
-            update_listView();
+            if (this.threads.Count > 0)
+            {
+                Thread last = this.threads.Last();
+                finish_process(last);
+                this.threads.Remove(last);
+                update_listView();
+            }
         }
 
-        // finish a process by releasing its resources and closing its window
-        private void finish_process(Thread p)
+        // finish a thread by releasing its resources and closing its window
+        private void finish_process(Thread t)
         {
-            if (p != null)
+            if (t != null)
             {
-                /*
-                // Close process by sending a close message to its main window.
-                p.CloseMainWindow();
-                // Free resources associated to process.
-                p.Close();
-                */
+                t.Abort();
             }
         }
 
@@ -245,7 +261,7 @@ namespace tp1_process
             int i = 1;
             foreach (Thread p in this.threads)
             {
-                string[] arr = { i++.ToString(), p.Priority.ToString(), p.Name };
+                string[] arr = { i++.ToString(), p.ManagedThreadId.ToString(), p.Name };
                 ListViewItem itm = new ListViewItem(arr);
                 listView1.Items.Add(itm);
             }
@@ -253,6 +269,5 @@ namespace tp1_process
             // redraw updated listview
             listView1.Refresh();
         }
-
     }
 }

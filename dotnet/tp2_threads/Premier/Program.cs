@@ -26,7 +26,10 @@ namespace Premier
                     i++;
                 }
                 if (i == p)
-                    Console.WriteLine(p.ToString());
+                {
+                    int id = Thread.CurrentThread.ManagedThreadId;
+                    Console.WriteLine('[' + id.ToString() + "] " + p.ToString());
+                }
                 Thread.Sleep(50);
             }
         }

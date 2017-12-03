@@ -42,6 +42,7 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.ballProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.primeProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,10 +52,11 @@
             this.LaunchToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.showProcessToolStripMenuItem,
+            this.pauseToolStripMenuItem,
             this.quitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(341, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(369, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -70,14 +72,14 @@
             // ballProcessToolStripMenuItem1
             // 
             this.ballProcessToolStripMenuItem1.Name = "ballProcessToolStripMenuItem1";
-            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.ballProcessToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.ballProcessToolStripMenuItem1.Text = "Ball thread";
             this.ballProcessToolStripMenuItem1.Click += new System.EventHandler(this.ballProcessToolStripMenuItem1_Click);
             // 
             // primeProcessToolStripMenuItem1
             // 
             this.primeProcessToolStripMenuItem1.Name = "primeProcessToolStripMenuItem1";
-            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.primeProcessToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.primeProcessToolStripMenuItem1.Text = "Prime thread";
             this.primeProcessToolStripMenuItem1.Click += new System.EventHandler(this.primeProcessToolStripMenuItem1_Click);
             // 
@@ -138,7 +140,7 @@
             // 
             this.listView1.Location = new System.Drawing.Point(0, 27);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(341, 359);
+            this.listView1.Size = new System.Drawing.Size(369, 359);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -154,11 +156,18 @@
             this.primeProcessToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.primeProcessToolStripMenuItem.Text = "Prime process";
             // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.pauseToolStripMenuItem.Text = "Pause/Resume";
+            this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
+            // 
             // process_manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(341, 377);
+            this.ClientSize = new System.Drawing.Size(369, 377);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -188,6 +197,7 @@
         private System.Windows.Forms.ToolStripMenuItem primeProcessToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ballProcessToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem primeProcessToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
     }
 }
 
