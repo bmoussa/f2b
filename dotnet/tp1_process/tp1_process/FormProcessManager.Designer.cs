@@ -136,7 +136,7 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(0, 47);
+            this.listView1.Location = new System.Drawing.Point(0, 27);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(341, 329);
             this.listView1.TabIndex = 0;
@@ -163,7 +163,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "process_manager";
-            this.Text = "Form1";
+            this.Text = "Process Manager";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
