@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace tp1_process
+namespace tp2_thread
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace tp1_process
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new process_manager());
+            Application.Run(new thread_manager());
         }
     }
 }

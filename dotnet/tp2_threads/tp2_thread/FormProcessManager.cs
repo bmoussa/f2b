@@ -13,9 +13,9 @@ using Premier;
 using WpfAppliTh;
 using System.Windows;
 
-namespace tp1_process
+namespace tp2_thread
 {
-    public partial class process_manager : Form
+    public partial class thread_manager : Form
     {
         /* --------------- CONSTANTS ---------------- */
         static string BALL_DLL_NAME = "Ballon";
@@ -33,7 +33,7 @@ namespace tp1_process
         delegate void ThreadArgReturningVoidDelegate(Thread p);
 
 
-        public process_manager()
+        public thread_manager()
         {
             InitializeComponent();
         }
@@ -53,17 +53,17 @@ namespace tp1_process
         // callback for X button (close)
         private void FormClosingHandler(object sender, EventArgs e)
         {
-            // finish child processes before exiting
+            // finish child threads before exiting
             finish_childs();
         }
 
         // callback for menu => Quit
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // finish child processes before exiting
+            // finish child threads before exiting
             finish_childs();
 
-            // finish this process
+            // finish this thread
             Close();
         }
 
@@ -80,9 +80,9 @@ namespace tp1_process
         }
 
         // callback for the X button of a child
-        void child_process_exited(object sender, EventArgs e)
+        void child_thread_exited(object sender, EventArgs e)
         {
-            // process must do this call using Invoke because it's another thread
+            // thread must do this call using Invoke because it's another thread
             void remove_exited_child(Thread p)
             {
                 this.threads.Remove(p);
@@ -113,13 +113,13 @@ namespace tp1_process
         // callback for menu => Delete => Last Ball Thread
         private void lastBallProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            finish_last_process_with_name(BALL_DLL_NAME);
+            finish_last_thread_with_name(BALL_DLL_NAME);
         }
 
         // callback for menu => Delete => Last Prime Thread
         private void lastPrimeProcessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            finish_last_process_with_name(PRIME_DLL_NAME);
+            finish_last_thread_with_name(PRIME_DLL_NAME);
         }
 
         // callback for menu => Delete => Last Thread
@@ -184,24 +184,24 @@ namespace tp1_process
 
             // TODO: add exit callback
             //p.EnableRaisingEvents = true;
-            //p.Exited += new EventHandler(child_process_exited);
+            //p.Exited += new EventHandler(child_thread_exited);
 
-            // append process to list
+            // append thread to list
             threads.Add(t);
 
             update_listView();
         }
 
-        // finish the last launched process with name process_name, 
-        // remove it from processes list and refresh table
-        private void finish_last_process_with_name(string process_name)
+        // finish the last launched thread with name thread_name, 
+        // remove it from threads list and refresh table
+        private void finish_last_thread_with_name(string thread_name)
         {
-            // find last process with given name
-            bool hasName(Thread p) => process_name.Equals(p.Name);
+            // find last thread with given name
+            bool hasName(Thread p) => thread_name.Equals(p.Name);
             Predicate<Thread> hasProcName = hasName;
             Thread last = this.threads.FindLast(hasProcName);
 
-            finish_process(last);
+            finish_thread(last);
 
             // remove from global list
             this.threads.Remove(last);
@@ -209,22 +209,22 @@ namespace tp1_process
             update_listView();
         }
 
-        // finish the last launched process, 
-        // remove it from processes list and refresh table
+        // finish the last launched thread, 
+        // remove it from threads list and refresh table
         private void finish_last()
         {
-            // finish last process from list and remove from list
+            // finish last thread from list and remove from list
             if (this.threads.Count > 0)
             {
                 Thread last = this.threads.Last();
-                finish_process(last);
+                finish_thread(last);
                 this.threads.Remove(last);
                 update_listView();
             }
         }
 
         // finish a thread by releasing its resources and closing its window
-        private void finish_process(Thread t)
+        private void finish_thread(Thread t)
         {
             if (t != null)
             {
@@ -232,13 +232,13 @@ namespace tp1_process
             }
         }
 
-        // finish all childs of the manager process
+        // finish all childs of the manager thread
         private void finish_childs()
         {
-            // finish child processes
+            // finish child threads
             foreach (Thread p in this.threads)
             {
-                finish_process(p);
+                finish_thread(p);
             }
 
             // empty threads list
@@ -254,7 +254,7 @@ namespace tp1_process
             // draw listview headers
             this.listView1.View = View.Details;
             this.listView1.Columns.Add("Index", 40, System.Windows.Forms.HorizontalAlignment.Left);
-            this.listView1.Columns.Add("Thread PID", 100, System.Windows.Forms.HorizontalAlignment.Left);
+            this.listView1.Columns.Add("Thread ID", 100, System.Windows.Forms.HorizontalAlignment.Left);
             this.listView1.Columns.Add("Thread name", 100, System.Windows.Forms.HorizontalAlignment.Left);
 
             // fill listview using threads list

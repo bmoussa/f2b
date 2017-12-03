@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{630E50E5-DA6D-4515-914D-2E92B9AB0250}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>tp1_process</RootNamespace>
-    <AssemblyName>tp1_process</AssemblyName>
+    <RootNamespace>tp2_thread</RootNamespace>
+    <AssemblyName>tp2_thread</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

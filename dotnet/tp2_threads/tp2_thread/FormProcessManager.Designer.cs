@@ -1,6 +1,6 @@
-﻿namespace tp1_process
+﻿namespace tp2_thread
 {
-    partial class process_manager
+    partial class thread_manager
     {
         /// <summary>
         /// Required designer variable.
