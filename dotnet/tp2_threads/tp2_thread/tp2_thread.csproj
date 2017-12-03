@@ -35,6 +35,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +48,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormProcessManager.cs">
@@ -85,6 +88,10 @@
     <ProjectReference Include="..\Premier\Premier.csproj">
       <Project>{b4fe7c49-4673-417f-9221-a5cd56fd7a49}</Project>
       <Name>Premier</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfCustomControlLibrary_balloon\Balloon.csproj">
+      <Project>{8eb9cae1-c7a9-430f-92e4-945736ac7cdf}</Project>
+      <Name>Balloon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
