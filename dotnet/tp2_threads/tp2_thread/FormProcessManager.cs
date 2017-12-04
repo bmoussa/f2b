@@ -215,7 +215,7 @@ namespace tp2_thread
         // remove it from threads list and refresh table
         private void finish_last()
         {
-            // finish last thread from list and remove from list
+            // finish last launched thread and remove from list
             if (this.threads.Count > 0)
             {
                 Thread last = this.threads.Last();

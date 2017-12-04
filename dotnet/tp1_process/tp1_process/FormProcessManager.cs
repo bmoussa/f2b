@@ -170,12 +170,16 @@ namespace tp1_process
         // remove it from processes list and refresh table
         private void finish_last()
         {
-            // finish last process from list and remove from list
-            Process last = this.procs.Last();
-            finish_process(last);
-            this.procs.Remove(last);
+            // finish last launched process and remove from list
 
-            update_listView();
+            if (this.procs.Count > 0)
+            {
+                Process last = this.procs.Last();
+                finish_process(last);
+                this.procs.Remove(last);
+
+                update_listView();
+            }
         }
 
         // finish a process by releasing its resources and closing its window
