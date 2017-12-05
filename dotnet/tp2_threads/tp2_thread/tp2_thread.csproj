@@ -94,6 +94,10 @@
       <Project>{8eb9cae1-c7a9-430f-92e4-945736ac7cdf}</Project>
       <Name>Balloon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WpfCustomControlLibrary_balloon\WpfCustomControlLibrary_balloon.csproj">
+      <Project>{516ef447-f0e5-4801-a59d-fe57c4d3a260}</Project>
+      <Name>WpfCustomControlLibrary_balloon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Premier", "Premier\Premier.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Balloon", "WpfCustomControlLibrary_balloon\Balloon.csproj", "{8EB9CAE1-C7A9-430F-92E4-945736AC7CDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCustomControlLibrary_balloon", "WpfCustomControlLibrary_balloon\WpfCustomControlLibrary_balloon.csproj", "{516EF447-F0E5-4801-A59D-FE57C4D3A260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8EB9CAE1-C7A9-430F-92E4-945736AC7CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EB9CAE1-C7A9-430F-92E4-945736AC7CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EB9CAE1-C7A9-430F-92E4-945736AC7CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{516EF447-F0E5-4801-A59D-FE57C4D3A260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{516EF447-F0E5-4801-A59D-FE57C4D3A260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{516EF447-F0E5-4801-A59D-FE57C4D3A260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{516EF447-F0E5-4801-A59D-FE57C4D3A260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
