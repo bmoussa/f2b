@@ -230,6 +230,9 @@ namespace tp2_thread
         {
             if (t != null)
             {
+                // resume suspended threads before aborting them
+                if(t.ThreadState == System.Threading.ThreadState.Suspended)
+                    t.Resume();
                 t.Abort();
             }
         }
