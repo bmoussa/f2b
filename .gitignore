@@ -12,3 +12,5 @@ dotnet/remote_chat/Interface/obj/
 dotnet/remote_chat/Interface/bin/
 dotnet/remote_chat/Server/obj/
 dotnet/remote_chat/Server/bin/
+tp2_threads/WpfCustomControlLibrary_balloon/bin/
+tp2_threads/WpfCustomControlLibrary_balloon/obj/
