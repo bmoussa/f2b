@@ -1,2 +1,14 @@
 */*.o
 */*.slog2
+tp1_process/tp1_process/bin
+tp1_process/tp1_process/obj
+tp2_threads/tp2_thread/bin
+tp2_threads/tp2_thread/obj
+tp2_threads/Premier/obj/
+tp2_threads/Premier/bin/
+remote_chat/WPFClient/obj/
+remote_chat/WPFClient/bin/
+remote_chat/Interface/obj/
+remote_chat/Interface/bin/
+remote_chat/Server/obj/
+remote_chat/Server/bin/
